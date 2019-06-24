@@ -1,13 +1,29 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
+import React from 'react'
+import IssueList from './components/IssueList'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Button className="btn" variant="secondary">Issue Tracker</Button>
-    </div>
-  );
+class App extends Component {
+  state  = {
+    issueArray : [
+      {
+        id: uuid.v4(),
+        title:'Empty Plates ',
+        description:'Empty plates in the refrigerator'
+      },
+      {
+       id: uuid.v4(),
+        title:'Empty Plates ',
+        description:'Empty plates in the refrigerator'
+      }
+    ]
+  }
+  render(){
+      return (
+        <div className="App">
+        <IssueList key={issueArray.id} issueArray={this.state.issueArray} />
+        </div>
+      );
+    }
 }
 
 export default App;
