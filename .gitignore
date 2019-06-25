@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/components/sampleForm.js
+edit_issue_.png
+create_new_issue.png
