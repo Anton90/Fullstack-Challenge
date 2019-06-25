@@ -1,16 +1,18 @@
 import React , {Component} from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 
+import Issue from '../components/Issue'
+
+// import ListGroup from 'react-bootstrap/ListGroup'
+
 
 class IssueList extends Component{
     render() {
-        return this.props.todos.map((issueArray) =>(
-            <div>
-                <ListGroup variant="flush">
-                    <ListGroup.Item>{this.props.issueArray}</ListGroup.Item>
-                </ListGroup>
-            </div>
-        )
+        return this.props.issueArray.map((issue) =>(
+        <ListGroup>
+        <Issue key={issue.id} issue={issue} />
+        </ListGroup>
+        ));
     }
 }
 
