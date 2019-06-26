@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import IssueList from './components/IssueList';
-import IssueListPage from './components/pages/IssueListPage';
 import IssueCreationForm from './components/IssueCreationForm';
 import IssueEditingForm from './components/IssueEditingForm';
 
@@ -20,23 +19,23 @@ class App extends Component {
         id: 2,
         title: 'Empty Plates Tuesday ',
         description: 'Empty plates in the refrigerator'
-      }]
-    issue:
-      {
-        creator: 'Mickey Mouse',
-        dateCreated: '2019/06/25',
-        daysOpen: '1',
-        issueID: 1,
-        votesUp: '10',
-        votesDown: '0',
-        title: 'Out of garbage bags',
-        description: 'We have no more garbage bags',
-        category: 'housekeeping',
-        priority: '5',
-        deadline: '2019/06/29',
-        assignee: 'tl',
-        taggees: ['fob', 'em']
       }
+    ],
+    mockIssue: {
+      creator: 'Mickey Mouse',
+      dateCreated: '2019/06/25',
+      daysOpen: '1',
+      issueID: 1,
+      votesUp: '10',
+      votesDown: '0',
+      title: 'Out of garbage bags',
+      description: 'We have no more garbage bags',
+      category: 'housekeeping',
+      priority: '5',
+      deadline: '2019/06/29',
+      assignee: 'tl',
+      taggees: ['fob', 'em']
+    }
   };
   // componentDidMount(){
   //   axios.get('rest api url')
@@ -56,18 +55,33 @@ class App extends Component {
             )}
           />
           <Route
-            path='/IssueListPage'
-            component={IssueListPage}
-            render={props => (
+            path='/IssueList'
+            component={IssueList}
+            render={() => (
               <React.Fragment>
                 <IssueList issueArray={this.state.issueArray} />
               </React.Fragment>
             )}
           />
 
-          <IssueCreationForm />
-          <hr />
-          <IssueEditingForm issue={this.state.issue} />
+          <Route
+            path='/Issues/new'
+            component={IssueCreationForm}
+            render={props => (
+              <React.Fragment>
+                <IssueCreationForm />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            path='/Issues/1'
+            component={IssueEditingForm}
+            render={props => (
+              <React.Fragment>
+                <IssueEditingForm issue={this.state.mockIssue} />
+              </React.Fragment>
+            )}
+          />
         </div>
       </Router>
     );
