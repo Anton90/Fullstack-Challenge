@@ -4,15 +4,14 @@ import Issue from '../components/Issue'
 
 // import ListGroup from 'react-bootstrap/ListGroup'
 
-
-class IssueList extends Component{
-    render() {
-        return this.props.issueArray.map((issue) =>(
-        <ListGroup>
+class IssueList extends Component {
+  render() {
+    return this.props.issueArray.map(issue => (
+      <ListGroup>
         <Issue key={issue.id} issue={issue} />
-        </ListGroup>
-        ));
-    }
+      </ListGroup>
+    ));
+  }
 }
 
 export default IssueList;
