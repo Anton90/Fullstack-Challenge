@@ -6,10 +6,6 @@ import Issue from '../components/Issue';
 // import ListGroup from 'react-bootstrap/ListGroup'
 
 class IssueList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return this.props.issueArray.map(issue => (
       <ListGroup>

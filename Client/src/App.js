@@ -55,9 +55,9 @@ class App extends Component {
             )}
           />
           <Route
-            path='/IssueList'
-            component={IssueList}
-            render={() => (
+            exact
+            path='/issues'
+            render={props => (
               <React.Fragment>
                 <IssueList issueArray={this.state.issueArray} />
               </React.Fragment>
@@ -65,8 +65,8 @@ class App extends Component {
           />
 
           <Route
-            path='/Issues/new'
-            component={IssueCreationForm}
+            exact
+            path='/issues/new'
             render={props => (
               <React.Fragment>
                 <IssueCreationForm />
@@ -74,8 +74,8 @@ class App extends Component {
             )}
           />
           <Route
-            path='/Issues/1'
-            component={IssueEditingForm}
+            path='/issues/:id'
+            exact
             render={props => (
               <React.Fragment>
                 <IssueEditingForm issue={this.state.mockIssue} />
