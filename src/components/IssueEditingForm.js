@@ -7,17 +7,22 @@ class IssueEditingForm extends Component {
     this.onCancel = this.onCancel.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    // const issueToEdit = props.issue;
-    // this.state = {
-    //   id: itemToEdit.id,
-    //   title: itemToEdit.title,
-    //   description: itemToEdit.description,
-    //   category: itemToEdit.category,
-    //   priority: itemToEdit.priority,
-    //   deadline: itemToEdit.deadline,
-    //   assignee: itemToEdit.assignee,
-    //   taggee: itemToEdit.taggee
-    // };
+    const issue = props.issue;
+    this.state = {
+      creator: issue.creator,
+      dateCreated: issue.dateCreated,
+      daysOpen: issue.daysOpen,
+      issueID: issue.issueID,
+      votesUp: issue.votesUp,
+      votesDown: issue.votesDown,
+      title: issue.title,
+      description: issue.description,
+      category: issue.category,
+      priority: issue.priority,
+      deadline: issue.deadline,
+      assignee: issue.assignee,
+      taggees: issue.taggees
+    };
   }
 
   handleInputChange(event) {
@@ -32,9 +37,9 @@ class IssueEditingForm extends Component {
     this.props.onCancel();
   }
   onSubmit() {
-    if (this.validator.validateInputs(this.state)) {
-      this.props.onSubmit(this.state);
-    }
+    // if (this.validator.validateInputs(this.state)) {
+    //   this.props.onSubmit(this.state);
+    // }
   }
 
   render() {
@@ -58,20 +63,23 @@ class IssueEditingForm extends Component {
         <h1>Update issue</h1>
 
         <div className='form-group row'>
-          <label for='creator' className='col-2 col-form-label text-right '>
+          <label htmlFor='creator' className='col-2 col-form-label text-right '>
             Creator
           </label>
           <div className='col-2'>
             <span className='form-control'>{creator}</span>
           </div>
 
-          <label for='dateCreated' className='col-2 col-form-label text-right'>
+          <label
+            htmlFor='dateCreated'
+            className='col-2 col-form-label text-right'
+          >
             Created on
           </label>
           <div className='col-2'>
             <span className='form-control'>{dateCreated}</span>
           </div>
-          <label for='daysOpen' className='col-2 col-form-label text-right'>
+          <label htmlFor='daysOpen' className='col-2 col-form-label text-right'>
             Days open
           </label>
           <div className='col-2'>
@@ -79,20 +87,23 @@ class IssueEditingForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='issueId' className='col-2 col-form-label text-right'>
+          <label htmlFor='issueId' className='col-2 col-form-label text-right'>
             Issue ID
           </label>
           <div className='col-2'>
             <span className='form-control'>{issueID}</span>
           </div>
 
-          <label for='votesUp' className='col-2 col-form-label text-right'>
+          <label htmlFor='votesUp' className='col-2 col-form-label text-right'>
             Votes up
           </label>
           <div className='col-2'>
             <span className='form-control'>{votesUp}</span>
           </div>
-          <label for='votesDown' className='col-2 col-form-label text-right'>
+          <label
+            htmlFor='votesDown'
+            className='col-2 col-form-label text-right'
+          >
             Votes down
           </label>
           <div className='col-2'>
@@ -100,7 +111,7 @@ class IssueEditingForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='title' className='col-2 col-form-label text-right'>
+          <label htmlFor='title' className='col-2 col-form-label text-right'>
             Title
           </label>
           <div className='col-10'>
@@ -113,6 +124,7 @@ class IssueEditingForm extends Component {
               aria-describedby='titleHelpBlock'
               required='required'
               value={title}
+              onChange={this.handleInputChange}
             />
             <span id='titleHelpBlock' className='form-text text-muted'>
               Enter a title for this issue
@@ -120,7 +132,10 @@ class IssueEditingForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='description' className='col-2 col-form-label text-right'>
+          <label
+            htmlFor='description'
+            className='col-2 col-form-label text-right'
+          >
             Description
           </label>
           <div className='col-10'>
@@ -134,6 +149,7 @@ class IssueEditingForm extends Component {
               aria-describedby='descriptionHelpBlock'
               required='required'
               value={description}
+              onChange={this.handleInputChange}
             />
             <span id='descriptionHelpBlock' className='form-text text-muted'>
               Issue description
@@ -141,7 +157,7 @@ class IssueEditingForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='category' className='col-2 col-form-label text-right'>
+          <label htmlFor='category' className='col-2 col-form-label text-right'>
             Category
           </label>
           <div className='col-10'>
@@ -151,6 +167,7 @@ class IssueEditingForm extends Component {
               className='custom-select'
               aria-describedby='categoryHelpBlock'
               value={category}
+              onChange={this.handleInputChange}
             >
               <option value='ua'>Unassigned</option>
               <option value='administration'>Administration</option>
@@ -165,7 +182,7 @@ class IssueEditingForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='priority' className='col-2 col-form-label text-right'>
+          <label htmlFor='priority' className='col-2 col-form-label text-right'>
             Priority
           </label>
           <div className='col-4'>
@@ -176,6 +193,7 @@ class IssueEditingForm extends Component {
               aria-describedby='priorityHelpBlock'
               required='required'
               value={priority}
+              onChange={this.handleInputChange}
             >
               <option value='1'>1</option>
               <option value='2'>2</option>
@@ -188,7 +206,7 @@ class IssueEditingForm extends Component {
             </span>
           </div>
 
-          <label for='deadline' className='col-2 col-form-label text-right'>
+          <label htmlFor='deadline' className='col-2 col-form-label text-right'>
             Deadline
           </label>
           <div className='col-4'>
@@ -201,6 +219,7 @@ class IssueEditingForm extends Component {
                 className='form-control'
                 aria-describedby='deadlineHelpBlock'
                 value={deadline}
+                onChange={this.handleInputChange}
               />
               <div className='input-group-append'>
                 <div className='input-group-text'>
@@ -214,7 +233,7 @@ class IssueEditingForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='assignee' className='col-2 col-form-label text-right'>
+          <label htmlFor='assignee' className='col-2 col-form-label text-right'>
             Assign to
           </label>
           <div className='col-4'>
@@ -224,6 +243,7 @@ class IssueEditingForm extends Component {
               className='custom-select'
               aria-describedby='assigneeHelpBlock'
               value={assignee}
+              onChange={this.handleInputChange}
             >
               <option value='ua'>Unassigned</option>
               <option value='tl'>Thijs</option>
@@ -235,7 +255,7 @@ class IssueEditingForm extends Component {
             </span>
           </div>
 
-          <label for='taggees' className='col-2 col-form-label text-right'>
+          <label htmlFor='taggees' className='col-2 col-form-label text-right'>
             Tag to
           </label>
           <div className='col-4 '>
@@ -246,6 +266,7 @@ class IssueEditingForm extends Component {
               aria-describedby='taggeesHelpBlock'
               multiple='multiple'
               value={taggees}
+              onChange={this.handleInputChange}
             >
               <option value='ua'>Unassigned</option>
               <option value='tl'>Thijs</option>
@@ -266,7 +287,7 @@ class IssueEditingForm extends Component {
               onClick={() => this.onSubmit()}
               name='submit'
               type='submit'
-              className='btn btn-primary  mr-5'
+              className='btn btn-primary mr-5'
             >
               Submit
             </button>
@@ -280,95 +301,6 @@ class IssueEditingForm extends Component {
           </div>
         </div>
       </form>
-
-      //         value={this.state.title}
-      //         name='title'
-      //         maxLength='100'
-      //         required
-      //         onChange={this.handleInputChange}
-      //         placeholder='issue title'
-      //       />
-      //     </label>
-      //   </div>
-      //   <div>
-      //     <label className='field-name'>
-      //       Description:
-      //       <br />
-      //       <textarea
-      //         value={this.state.description}
-      //         name='description'
-      //         onChange={this.handleInputChange}
-      //         placeholder='description'
-      //       />
-      //     </label>
-      //   </div>
-      //   <div>
-      //     <label className='field-name'>
-      //       Category
-      //       <br />
-      //       <input
-      //         value={this.state.category}
-      //         name='category'
-      //         onChange={this.handleInputChange}
-      //         placeholder='category'
-      //       />
-      //     </label>
-      //   </div>
-      //   <div>
-      //     <label className='field-name'>
-      //       Priority:
-      //       <br />
-      //       <input
-      //         value={this.state.priority}
-      //         name='priority'
-      //         onChange={this.handleInputChange}
-      //         placeholder='priority'
-      //       />
-      //     </label>
-      //   </div>
-      //   <div>
-      //     <label className='field-name'>
-      //       Deadline
-      //       <br />
-      //       <input
-      //         value={this.state.deadline}
-      //         name='deadline'
-      //         type='date'
-      //         onChange={this.handleInputChange}
-      //         placeholder='deadline'
-      //       />
-      //     </label>
-      //   </div>
-      //   <div>
-      //     <label className='field-name'>
-      //       Assign to:
-      //       <br />
-      //       <input
-      //         value={this.state.assignee}
-      //         name='assignee'
-      //         onChange={this.handleInputChange}
-      //         placeholder='assignee'
-      //       />
-      //     </label>
-      //   </div>
-      //   <div>
-      //     <label className='field-name'>
-      //       Tag to
-      //       <br />
-      //       <input
-      //         value={this.state.taggee}
-      //         name='taggee'
-      //         onChange={this.handleInputChange}
-      //         placeholder='taggee'
-      //       />
-      //     </label>
-      //   </div>
-      //   <br />
-      //   <button onClick={() => this.onSubmit()}>
-      //     {this.props.item.id == null ? 'Submit' : 'Update '}
-      //   </button>
-      //   <button onClick={() => this.onCancel()}>Cancel</button>
-      // </div>
     );
   }
 }

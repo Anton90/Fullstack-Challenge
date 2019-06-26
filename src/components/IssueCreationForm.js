@@ -8,14 +8,13 @@ class IssueCreationForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
-      id: '',
       title: '',
       description: '',
       category: '',
       priority: '',
       deadline: '',
       assignee: '',
-      taggee: ''
+      taggees: []
     };
   }
 
@@ -31,9 +30,9 @@ class IssueCreationForm extends Component {
     this.props.onCancel();
   }
   onSubmit() {
-    if (this.validator.validateInputs(this.state)) {
-      this.props.onSubmit(this.state);
-    }
+    // if (this.validator.validateInputs(this.state)) {
+    //   this.props.onSubmit(this.state);
+    // }
   }
 
   render() {
@@ -42,7 +41,7 @@ class IssueCreationForm extends Component {
         <h1>Create new issue</h1>
 
         <div className='form-group row'>
-          <label for='title' className='col-2 col-form-label text-right'>
+          <label htmlFor='title' className='col-2 col-form-label text-right'>
             Title
           </label>
           <div className='col-10'>
@@ -54,6 +53,7 @@ class IssueCreationForm extends Component {
               className='form-control'
               aria-describedby='titleHelpBlock'
               required='required'
+              onChange={this.handleInputChange}
             />
             <span id='titleHelpBlock' className='form-text text-muted'>
               Enter a title for this issue
@@ -61,7 +61,10 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='description' className='col-2 col-form-label text-right'>
+          <label
+            htmlFor='description'
+            className='col-2 col-form-label text-right'
+          >
             Description
           </label>
           <div className='col-10'>
@@ -74,6 +77,7 @@ class IssueCreationForm extends Component {
               className='form-control'
               aria-describedby='descriptionHelpBlock'
               required='required'
+              onChange={this.handleInputChange}
             />
             <span id='descriptionHelpBlock' className='form-text text-muted'>
               Issue description
@@ -81,7 +85,7 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='category' className='col-2 col-form-label text-right'>
+          <label htmlFor='category' className='col-2 col-form-label text-right'>
             Category
           </label>
           <div className='col-10'>
@@ -90,6 +94,7 @@ class IssueCreationForm extends Component {
               name='category'
               className='custom-select'
               aria-describedby='categoryHelpBlock'
+              onChange={this.handleInputChange}
             >
               <option value='ua'>Unassigned</option>
               <option value='administration'>Administration</option>
@@ -104,7 +109,7 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='priority' className='col-2 col-form-label text-right'>
+          <label htmlFor='priority' className='col-2 col-form-label text-right'>
             Priority
           </label>
           <div className='col-4'>
@@ -114,6 +119,7 @@ class IssueCreationForm extends Component {
               className='custom-select'
               aria-describedby='priorityHelpBlock'
               required='required'
+              onChange={this.handleInputChange}
             >
               <option value='1'>1</option>
               <option value='2'>2</option>
@@ -126,7 +132,7 @@ class IssueCreationForm extends Component {
             </span>
           </div>
 
-          <label for='deadline' className='col-2 col-form-label text-right'>
+          <label htmlFor='deadline' className='col-2 col-form-label text-right'>
             Deadline
           </label>
           <div className='col-4'>
@@ -138,6 +144,7 @@ class IssueCreationForm extends Component {
                 type='text'
                 className='form-control'
                 aria-describedby='deadlineHelpBlock'
+                onChange={this.handleInputChange}
               />
               <div className='input-group-append'>
                 <div className='input-group-text'>
@@ -151,7 +158,7 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='assignee' className='col-2 col-form-label text-right'>
+          <label htmlFor='assignee' className='col-2 col-form-label text-right'>
             Assign to
           </label>
           <div className='col-4'>
@@ -160,6 +167,7 @@ class IssueCreationForm extends Component {
               name='assignee'
               className='custom-select'
               aria-describedby='assigneeHelpBlock'
+              onChange={this.handleInputChange}
             >
               <option value='ua'>Unassigned</option>
               <option value='tl'>Thijs</option>
@@ -171,7 +179,7 @@ class IssueCreationForm extends Component {
             </span>
           </div>
 
-          <label for='taggees' className='col-2 col-form-label text-right'>
+          <label htmlFor='taggees' className='col-2 col-form-label text-right'>
             Tag to
           </label>
           <div className='col-4 '>
@@ -181,6 +189,7 @@ class IssueCreationForm extends Component {
               className='custom-select'
               aria-describedby='taggeesHelpBlock'
               multiple='multiple'
+              onChange={this.handleInputChange}
             >
               <option value='ua'>Unassigned</option>
               <option value='tl'>Thijs</option>
