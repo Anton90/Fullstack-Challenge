@@ -18,8 +18,19 @@ router.get('/', async (req, res) => {
 //Submits an issue
 router.post('/', async (req, res) => {
 	const issue = new Issue({
+		issueID: req.body.issueID,
 		title: req.body.title,
-		description: req.body.description
+		creator: req.body.creator,
+		dateCreated: req.body.dateCreated,
+		daysOpen: req.body.daysOpen,
+		deadline: req.body.deadline,
+		description: req.body.description,
+		category: req.body.category,
+		priority: req.body.priority,
+		assignee: req.body.assignee,
+		taggees: req.body.taggees,
+		votesUp: req.body.votesUp,
+		votesDown: req.body.votesDown
 	});
 
 	try 
@@ -27,16 +38,17 @@ router.post('/', async (req, res) => {
 		const savedIssue = await issue.save();
 		res.json(savedIssue);
 	} 
-	catch(err) {
+	catch(err) 
+	{
 		res.json({ message: err}); 
 	}
 });
 
 //Gets a specific issue
-router.get('/:issueId', async (req, res) => {
+router.get('/:issueID', async (req, res) => {
 	try 
 	{
-		const post = await Issue.findById(req.params.issueId);
+		const post = await Issue.findById(req.params.issueID);
 		res.json(post);
 	}
 	catch(err) 
@@ -47,10 +59,10 @@ router.get('/:issueId', async (req, res) => {
 
 
 //Update an issue
-router.patch('/:issueId', async (req, res) => {
+router.patch('/:issueID', async (req, res) => {
 	try 
 	{
-		const updatedIssue = await Issue.updateOne({_id: req.params.issueId}, 
+		const updatedIssue = await Issue.updateOne({_id: req.params.issueID}, 
 			{$set: {title: req.body.title}}); 
 		res.json(updatedIssue); 
 	}
@@ -61,10 +73,10 @@ router.patch('/:issueId', async (req, res) => {
 });
 
 //Delete an issue
-router.delete('/:issueId', async (req, res) => {
+router.delete('/:issueID', async (req, res) => {
 	try 
 	{
-		const deletedIssue = await Issue.remove({_id: req.params.issueId});
+		const deletedIssue = await Issue.remove({_id: req.params.issueID});
 		res.json(deletedIssue);
 	}
 	catch(err) 
