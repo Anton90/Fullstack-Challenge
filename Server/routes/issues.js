@@ -45,10 +45,10 @@ router.post('/', async (req, res) => {
 });
 
 //Gets a specific issue
-router.get('/:issueID', async (req, res) => {
+router.get('/:_id', async (req, res) => {
 	try 
 	{
-		const post = await Issue.findById(req.params.issueID);
+		const post = await Issue.findById(req.params._id);
 		res.json(post);
 	}
 	catch(err) 
@@ -59,10 +59,10 @@ router.get('/:issueID', async (req, res) => {
 
 
 //Update an issue
-router.patch('/:issueID', async (req, res) => {
+router.patch('/:_id', async (req, res) => {
 	try 
 	{
-		const updatedIssue = await Issue.updateOne({_id: req.params.issueID}, 
+		const updatedIssue = await Issue.updateOne({_id: req.params._id}, 
 			{$set: {title: req.body.title}}); 
 		res.json(updatedIssue); 
 	}
@@ -72,11 +72,12 @@ router.patch('/:issueID', async (req, res) => {
 	}
 });
 
+
 //Delete an issue
-router.delete('/:issueID', async (req, res) => {
+router.delete('/:_id', async (req, res) => {
 	try 
 	{
-		const deletedIssue = await Issue.remove({_id: req.params.issueID});
+		const deletedIssue = await Issue.remove({_id: req.params._id});
 		res.json(deletedIssue);
 	}
 	catch(err) 
