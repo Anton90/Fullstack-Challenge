@@ -42,7 +42,7 @@ class IssueCreationForm extends Component {
         <h1>Create new issue</h1>
 
         <div className='form-group row'>
-          <label for='title' className='col-2 col-form-label'>
+          <label for='title' className='col-2 col-form-label text-right'>
             Title
           </label>
           <div className='col-10'>
@@ -61,7 +61,7 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='description' className='col-2 col-form-label'>
+          <label for='description' className='col-2 col-form-label text-right'>
             Description
           </label>
           <div className='col-10'>
@@ -81,7 +81,7 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='category' className='col-2 col-form-label'>
+          <label for='category' className='col-2 col-form-label text-right'>
             Category
           </label>
           <div className='col-10'>
@@ -91,9 +91,12 @@ class IssueCreationForm extends Component {
               className='custom-select'
               aria-describedby='categoryHelpBlock'
             >
-              <option value='rabbit'>Rabbit</option>
-              <option value='duck'>Duck</option>
-              <option value='fish'>Fish</option>
+              <option value='ua'>Unassigned</option>
+              <option value='administration'>Administration</option>
+              <option value='building'>Building</option>
+              <option value='curriculum'>Curriculum</option>
+              <option value='equipment'>Equipment</option>
+              <option value='housekeeping'>Housekeeping</option>
             </select>
             <span id='categoryHelpBlock' className='form-text text-muted'>
               Issue category
@@ -101,7 +104,7 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='priority' className='col-2 col-form-label'>
+          <label for='priority' className='col-2 col-form-label text-right'>
             Priority
           </label>
           <div className='col-4'>
@@ -123,7 +126,7 @@ class IssueCreationForm extends Component {
             </span>
           </div>
 
-          <label for='deadline' className='col-2 col-form-label'>
+          <label for='deadline' className='col-2 col-form-label text-right'>
             Deadline
           </label>
           <div className='col-4'>
@@ -148,7 +151,7 @@ class IssueCreationForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <label for='assignee' className='col-2 col-form-label'>
+          <label for='assignee' className='col-2 col-form-label text-right'>
             Assign to
           </label>
           <div className='col-4'>
@@ -158,16 +161,17 @@ class IssueCreationForm extends Component {
               className='custom-select'
               aria-describedby='assigneeHelpBlock'
             >
-              <option value='me'>Me</option>
-              <option value='you'>You</option>
-              <option value='them'>Them</option>
+              <option value='ua'>Unassigned</option>
+              <option value='tl'>Thijs</option>
+              <option value='kf'>Kevin</option>
+              <option value='fdc'>Free</option>
             </select>
             <span id='assigneeHelpBlock' className='form-text text-muted'>
               Select user ...
             </span>
           </div>
 
-          <label for='taggees' className='col-2 col-form-label'>
+          <label for='taggees' className='col-2 col-form-label text-right'>
             Tag to
           </label>
           <div className='col-4 '>
@@ -178,9 +182,13 @@ class IssueCreationForm extends Component {
               aria-describedby='taggeesHelpBlock'
               multiple='multiple'
             >
-              <option value='he'>He</option>
-              <option value='she'>She</option>
-              <option value='them'>Them</option>
+              <option value='ua'>Unassigned</option>
+              <option value='tl'>Thijs</option>
+              <option value='kf'>Kevin</option>
+              <option value='fdc'>Free</option>
+              <option value='em'>Emilie</option>
+              <option value='ae'>Anton</option>
+              <option value='fob'>Fiona</option>
             </select>
             <span id='taggeesHelpBlock' className='form-text text-muted'>
               Select users ...

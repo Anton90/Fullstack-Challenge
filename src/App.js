@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 import IssueCreationForm from './components/IssueCreationForm';
 import IssueEditingForm from './components/IssueEditingForm';
 
-function App() {
-  return (
-    <div className='App'>
-      <IssueCreationForm />
-      <hr />
-      <IssueEditingForm
-        item={{
-          id: 7,
-          title: 'title from prop',
-          description: 'description from prop',
-          category: 'category from prop',
-          priority: 'priority from prop',
-          deadline: 'deadline from prop',
-          assignee: 'assignee from prop',
-          taggee: 'taggee from prop'
-        }}
-      />
-    </div>
-  );
-}
+export default class App extends Component {
+  state = {
+    issue: {
+      creator: 'Mickey Mouse',
+      dateCreated: '2019/06/25',
+      daysOpen: '1',
+      issueID: 1,
+      votesUp: '10',
+      votesDown: '0',
+      title: 'Out of garbage bags',
+      description: 'We have no more garbage bags',
+      category: 'housekeeping',
+      priority: '5',
+      deadline: '2019/06/29',
+      assignee: 'tl',
+      taggees: ['fob', 'em']
+    }
+  };
 
-export default App;
+  render() {
+    return (
+      <div className='App'>
+        <IssueCreationForm />
+        <hr />
+        <IssueEditingForm issue={this.state.issue} />
+      </div>
+    );
+  }
+}
