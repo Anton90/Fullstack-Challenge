@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class IssueCreationForm extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class IssueCreationForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
+      creator: 'me',
       title: '',
       description: '',
       category: '',
@@ -29,11 +31,14 @@ class IssueCreationForm extends Component {
   onCancel() {
     this.props.onCancel();
   }
-  onSubmit() {
-    // if (this.validator.validateInputs(this.state)) {
-    //   this.props.onSubmit(this.state);
-    // }
-  }
+  onSubmit = async () => {
+    try {
+      let result = await axios.post('/issues', this.state);
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   render() {
     return (
@@ -206,14 +211,14 @@ class IssueCreationForm extends Component {
         </div>
         <div className='form-group row'>
           <div className='offset-2 col-10'>
-            <button
+            <span
               onClick={() => this.onSubmit()}
               name='submit'
               type='submit'
               className='btn btn-primary  mr-5'
             >
               Submit
-            </button>
+            </span>
             <button
               onClick={() => this.onCancel()}
               name='cancel'

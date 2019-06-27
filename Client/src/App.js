@@ -35,9 +35,8 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       let response = await axios.get('/issues');
-      let data = response.data;
-      this.setState({issueArray : data})
-      console.log(data);
+      console.log(response.data);
+      this.setState({ issueArray: response.data });
     } catch (error) {
       console.error(error);
     }
@@ -52,7 +51,16 @@ class App extends Component {
             path='/'
             render={props => (
               <React.Fragment>
-                <h1>Issue Dash Board</h1>
+                <h1>Issue Dashboard</h1>
+                <p>
+                  <a href='/issues'>List of issues</a>
+                </p>
+                <p>
+                  <a href='/issues/new'>Create issue</a>
+                </p>
+                <p>
+                  <a href='/issues/1'>Edit issue 1</a>
+                </p>
               </React.Fragment>
             )}
           />
@@ -76,11 +84,11 @@ class App extends Component {
             )}
           />
           <Route
-            path='/issues/:id/edit'
             exact
+            path='/issues/:_id/edit'
             render={props => (
               <React.Fragment>
-                <IssueEditingForm issue={this.state.mockIssue} />
+                <IssueEditingForm {...props} />
               </React.Fragment>
             )}
           />
