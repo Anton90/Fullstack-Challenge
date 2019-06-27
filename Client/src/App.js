@@ -5,7 +5,7 @@ import IssueCreationForm from './components/IssueCreationForm';
 import IssueEditingForm from './components/IssueEditingForm';
 import IssueDescription from './components/IssueDescription';
 
-// import axios from 'axios'
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
@@ -38,10 +38,19 @@ class App extends Component {
       taggees: ['fob', 'em']
     }
   };
-  // componentDidMount(){
-  //   axios.get('rest api url')
-  //   .then(res => this.setState({issueArray : res.data}))
-  // }
+  // componentDidMount = async () => {
+  //   axios.get('/issues').then(res => console.log(res));
+  // };
+
+  componentDidMount = async () => {
+    try {
+      let response = await axios.get('/issues');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   render() {
     return (
       <Router>

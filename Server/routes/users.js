@@ -20,7 +20,6 @@ router.get('/', async (req, res) => {
 //Submits a new user
 router.post('/', async (req, res) => {
 	const user = new User({
-		userID: req.body.userID,
 		name: req.body.name,
 		password: req.body.password,
 		email: req.body.email,
@@ -37,6 +36,10 @@ router.post('/', async (req, res) => {
 		res.json({ message: err}); 
 	}
 })
+
+
+//Gets a specific user
+//router.get('/:_id', )
 
 
 module.exports = router; 
