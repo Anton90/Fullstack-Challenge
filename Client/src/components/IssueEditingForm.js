@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class IssueEditingForm extends Component {
   constructor(props) {
@@ -7,21 +8,21 @@ class IssueEditingForm extends Component {
     this.onCancel = this.onCancel.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    const issue = props.issue;
     this.state = {
-      creator: issue.creator,
-      dateCreated: issue.dateCreated,
-      daysOpen: issue.daysOpen,
-      issueID: issue.issueID,
-      votesUp: issue.votesUp,
-      votesDown: issue.votesDown,
-      title: issue.title,
-      description: issue.description,
-      category: issue.category,
-      priority: issue.priority,
-      deadline: issue.deadline,
-      assignee: issue.assignee,
-      taggees: issue.taggees
+      _id: '',
+      creator: '',
+      dateCreated: '',
+      daysOpen: '',
+      issueID: '',
+      votesUp: '',
+      votesDown: '',
+      title: '',
+      description: '',
+      category: '',
+      priority: '',
+      deadline: '',
+      assignee: '',
+      taggees: []
     };
   }
 
@@ -42,6 +43,39 @@ class IssueEditingForm extends Component {
     // }
   }
 
+  componentDidMount = async () => {
+    try {
+      //return console.log(this.props.match.params);
+      let response = await axios.get(`/issues/${this.props.match.params._id}`);
+      // let response = await axios.get(`/issues/5d135c046dae8816a2cc72fc`);
+      console.log(response.data);
+      console.log(Object.keys(response.data));
+      let {
+        _id,
+        creator,
+        dateCreated,
+        daysOpen,
+        issueID,
+        votesUp,
+        votesDown,
+        title,
+        description,
+        category,
+        priority,
+        deadline,
+        assignee,
+        taggees
+      } = response.data;
+
+      Object.keys(response.data).forEach(key =>
+        this.setState({ [key]: response.data[key] })
+      );
+      // this.setState({ title: title });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   render() {
     const {
       creator,
@@ -57,7 +91,7 @@ class IssueEditingForm extends Component {
       deadline,
       assignee,
       taggees
-    } = this.props.issue;
+    } = this.state;
     return (
       <form className='container'>
         <h1>Update issue</h1>
@@ -192,7 +226,7 @@ class IssueEditingForm extends Component {
               className='custom-select'
               aria-describedby='priorityHelpBlock'
               required='required'
-              value={priority}
+              value={priority || ''}
               onChange={this.handleInputChange}
             >
               <option value='1'>1</option>
@@ -218,7 +252,7 @@ class IssueEditingForm extends Component {
                 type='text'
                 className='form-control'
                 aria-describedby='deadlineHelpBlock'
-                value={deadline}
+                value={deadline || ''}
                 onChange={this.handleInputChange}
               />
               <div className='input-group-append'>

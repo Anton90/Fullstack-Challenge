@@ -83,10 +83,10 @@ class App extends Component {
           />
           <Route
             exact
-            path='/issues/:_id'
+            path='/issues/:_id/edit'
             render={props => (
               <React.Fragment>
-                <IssueEditingForm issue={this.state.issueArray} />
+                <IssueEditingForm {...props} />
               </React.Fragment>
             )}
           />
