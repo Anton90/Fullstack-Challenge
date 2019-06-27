@@ -38,6 +38,8 @@ router.post('/', async (req, res) => {
 })
 
 
+//Gets a specific user
+//router.get('/:_id', )
 
 
 module.exports = router; 

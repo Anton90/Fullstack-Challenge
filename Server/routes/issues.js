@@ -18,7 +18,6 @@ router.get('/', async (req, res) => {
 //Submits an issue
 router.post('/', async (req, res) => {
 	const issue = new Issue({
-		issueID: req.body.issueID,
 		title: req.body.title,
 		creator: req.body.creator,
 		dateCreated: req.body.dateCreated,
@@ -43,6 +42,7 @@ router.post('/', async (req, res) => {
 		res.json({ message: err}); 
 	}
 });
+
 
 //Gets a specific issue
 router.get('/:_id', async (req, res) => {
