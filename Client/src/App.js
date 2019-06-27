@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import IssueList from './components/IssueList';
 import IssueCreationForm from './components/IssueCreationForm';
 import IssueEditingForm from './components/IssueEditingForm';
+import IssueDescription from './components/IssueDescription';
 
 // import axios from 'axios'
 import './App.css';
@@ -81,6 +82,14 @@ class App extends Component {
                 <IssueEditingForm issue={this.state.mockIssue} />
               </React.Fragment>
             )}
+          />
+          <Route
+          path='/issues/Description'
+          exact
+          render={props => (
+              <IssueDescription />
+            )
+          }
           />
         </div>
       </Router>
