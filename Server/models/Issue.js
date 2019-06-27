@@ -1,10 +1,6 @@
 const mongoose = require('mongoose'); 
 
 const IssueSchema = mongoose.Schema( {
-	issueID: {
-		type: Number,
-		required: true
-	},
 	title: {
 		type: String,
 		required: true
