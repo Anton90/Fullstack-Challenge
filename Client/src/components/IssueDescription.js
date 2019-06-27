@@ -1,13 +1,15 @@
-import React from 'react'
+import React , {Component} from 'react'
+import Issue from '../components/Issue'
 
-export default function IssueDescription() {
-    return (
-        <div className='container'>
-            <h2>Out of garbage bag</h2>
-            <p>
-            We have no more garbage bags ... 
-            </p>
-            <p>Mickey Mouse</p>
+
+class IssueDescription extends Component {
+    render() {
+      return this.props.issueArray.map(issue => (
+        <div>
+          {issue.title}
         </div>
-    )
-}
+      ));
+    }
+  }
+  
+  export default IssueDescription;

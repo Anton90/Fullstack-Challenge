@@ -5,23 +5,13 @@ import IssueCreationForm from './components/IssueCreationForm';
 import IssueEditingForm from './components/IssueEditingForm';
 import IssueDescription from './components/IssueDescription';
 
+
 import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   state = {
-    issueArray: [
-      {
-        id: 1,
-        title: 'Empty Plates Monday',
-        description: 'Empty plates in the refrigerator'
-      },
-      {
-        id: 2,
-        title: 'Empty Plates Tuesday ',
-        description: 'Empty plates in the refrigerator'
-      }
-    ],
+    issueArray: [],
     mockIssue: {
       creator: 'Mickey Mouse',
       dateCreated: '2019/06/25',
@@ -45,7 +35,9 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       let response = await axios.get('/issues');
-      console.log(response);
+      let data = response.data;
+      this.setState({issueArray : data})
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -84,7 +76,7 @@ class App extends Component {
             )}
           />
           <Route
-            path='/issues/:id'
+            path='/issues/:id/edit'
             exact
             render={props => (
               <React.Fragment>
@@ -93,12 +85,12 @@ class App extends Component {
             )}
           />
           <Route
-          path='/issues/Description'
-          exact
-          render={props => (
-              <IssueDescription />
-            )
-          }
+              path='/issues/:id'
+              exact
+              render={props => (
+                  <IssueDescription issueArray={this.state.issueArray} />
+                )
+              }
           />
         </div>
       </Router>

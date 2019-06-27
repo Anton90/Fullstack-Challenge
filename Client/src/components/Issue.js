@@ -8,13 +8,16 @@ class Issue extends Component{
             textDecoration : 'underline',
             color: 'rgb(68, 90, 144)'
         }
-        const {id , title , description } = this.props.issue
+        const {category , creator , _id , title , description } = this.props.issue
         return (
             <div>
-                <h3 style={titleStyle}> {id + "." + title }  </h3>
+                <h3 style={titleStyle}> {title }  </h3>
                 <p> {description}</p>
-                <a>Read More >></a>
-            </div>
+                <p>{"Category : " + category}</p>
+                <p>{"Creator : " + creator}</p>
+                
+                <a href={'/issues/'+ _id}>Read more...</a>
+                </div>   
             )
     }
 }
