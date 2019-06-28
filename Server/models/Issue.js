@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'); 
+const userSchema = require('./User'); 
 
 const IssueSchema = mongoose.Schema( {
 	title: {
@@ -31,16 +32,20 @@ const IssueSchema = mongoose.Schema( {
 		default: 0
 	},
 	assignee: {
-		type: String
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
 	},
-	taggees: {
-		type: String
-	},
+	taggees: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	}],
 	votesUp: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	votesDown: {
-		type: Number
+		type: Number,
+		default: 0
 	}
 });
 

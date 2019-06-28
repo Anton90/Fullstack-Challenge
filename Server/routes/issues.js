@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
 	 }
 })
 
+
 //Submits an issue
 router.post('/', async (req, res) => {
 	const issue = new Issue({
@@ -48,8 +49,10 @@ router.post('/', async (req, res) => {
 router.get('/:_id', async (req, res) => {
 	try 
 	{
-		const post = await Issue.findById(req.params._id);
-		res.json(post);
+		const issue = await Issue.findById(req.params._id)
+		.populate('taggees', 'name')
+		.populate('assignee', 'name'); 
+		res.json(issue);
 	}
 	catch(err) 
 	{
@@ -63,7 +66,20 @@ router.patch('/:_id', async (req, res) => {
 	try 
 	{
 		const updatedIssue = await Issue.updateOne({_id: req.params._id}, 
-			{$set: {title: req.body.title}}); 
+			{$set: {title: req.body.title,
+					creator: req.body.creator,
+					dateCreated: req.body.dateCreated,
+					daysOpen: req.body.daysOpen,
+					deadline: req.body.deadline,
+					description: req.body.description,
+					category: req.body.category,
+					priority: req.body.priority,
+					assignee: req.body.assignee,
+					taggees: req.body.taggees,
+					votesUp: req.body.votesUp,
+					votesDown: req.body.votesDown
+					}
+			}); 
 		res.json(updatedIssue); 
 	}
 	catch(err) 
