@@ -1,5 +1,4 @@
-const mongoose = require('mongoose'); 
-const userSchema = require('./User'); 
+const mongoose = require('mongoose');  
 
 const IssueSchema = mongoose.Schema( {
 	title: {
@@ -49,4 +48,4 @@ const IssueSchema = mongoose.Schema( {
 	}
 });
 
-module.exports = mongoose.model('Issues', IssueSchema); 
+module.exports = mongoose.model('Issues', IssueSchema);
