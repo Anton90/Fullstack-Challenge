@@ -6,9 +6,7 @@ class Issue extends Component {
     const { _id, title, description } = this.props.issue;
     return (
       <ListGroup.Item>
-        {_id}
-        {title}
-        {description}
+        {_id} | {title} | {description}
       </ListGroup.Item>
     );
   }
