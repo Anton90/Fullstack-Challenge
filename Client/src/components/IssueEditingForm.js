@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class IssueEditingForm extends Component {
   constructor(props) {
@@ -7,21 +8,21 @@ class IssueEditingForm extends Component {
     this.onCancel = this.onCancel.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    const issue = props.issue;
     this.state = {
-      creator: issue.creator,
-      dateCreated: issue.dateCreated,
-      daysOpen: issue.daysOpen,
-      issueID: issue.issueID,
-      votesUp: issue.votesUp,
-      votesDown: issue.votesDown,
-      title: issue.title,
-      description: issue.description,
-      category: issue.category,
-      priority: issue.priority,
-      deadline: issue.deadline,
-      assignee: issue.assignee,
-      taggees: issue.taggees
+      _id: '',
+      creator: '',
+      dateCreated: '',
+      daysOpen: '',
+      issueID: '',
+      votesUp: '',
+      votesDown: '',
+      title: '',
+      description: '',
+      category: '',
+      priority: '',
+      deadline: '',
+      assignee: '',
+      taggees: []
     };
   }
 
@@ -36,18 +37,58 @@ class IssueEditingForm extends Component {
   onCancel() {
     this.props.onCancel();
   }
-  onSubmit() {
-    // if (this.validator.validateInputs(this.state)) {
-    //   this.props.onSubmit(this.state);
-    // }
-  }
+  onSubmit = async () => {
+    let now = new Date();
+    let today = now.getDate;
+    this.setState({ creationDate: today });
+    try {
+      let result = await axios.patch(
+        `/issues/${this.props.match.params._id}`,
+        this.state
+      );
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  componentDidMount = async () => {
+    try {
+      //return console.log(this.props.match.params);
+      let response = await axios.get(`/issues/${this.props.match.params._id}`);
+      // let response = await axios.get(`/issues/5d135c046dae8816a2cc72fc`);
+      console.log(response.data);
+      console.log(Object.keys(response.data));
+      let {
+        _id,
+        creator,
+        dateCreated,
+        daysOpen,
+        issueID,
+        votesUp,
+        votesDown,
+        title,
+        description,
+        category,
+        priority,
+        deadline,
+        assignee,
+        taggees
+      } = response.data;
+
+      Object.keys(response.data).forEach(key =>
+        this.setState({ [key]: response.data[key] })
+      );
+      // this.setState({ title: title });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   render() {
     const {
       creator,
       dateCreated,
-      daysOpen,
-      issueID,
       votesUp,
       votesDown,
       title,
@@ -57,7 +98,26 @@ class IssueEditingForm extends Component {
       deadline,
       assignee,
       taggees
-    } = this.props.issue;
+    } = this.state;
+    console.log(`1: ${dateCreated}`);
+    const parsedDateCreated = new Date(dateCreated);
+    const displayDateCreated = parsedDateCreated.toLocaleDateString('en', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    const parsedDateDeadline = new Date(deadline);
+    const displayDateDeadline = parsedDateDeadline.toLocaleDateString('en', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    let now = new Date();
+    let daysOpen = Math.ceil(
+      Math.abs(now.getTime() - parsedDateCreated.getTime()) / (1000 * 3600 * 24)
+    );
+
+    console.log(displayDateCreated);
     return (
       <form className='container'>
         <h1>Update issue</h1>
@@ -66,38 +126,14 @@ class IssueEditingForm extends Component {
           <label htmlFor='creator' className='col-2 col-form-label text-right '>
             Creator
           </label>
-          <div className='col-2'>
+          <div className='col-4'>
             <span className='form-control'>{creator}</span>
-          </div>
-
-          <label
-            htmlFor='dateCreated'
-            className='col-2 col-form-label text-right'
-          >
-            Created on
-          </label>
-          <div className='col-2'>
-            <span className='form-control'>{dateCreated}</span>
-          </div>
-          <label htmlFor='daysOpen' className='col-2 col-form-label text-right'>
-            Days open
-          </label>
-          <div className='col-2'>
-            <span className='form-control'>{daysOpen}</span>
-          </div>
-        </div>
-        <div className='form-group row'>
-          <label htmlFor='issueId' className='col-2 col-form-label text-right'>
-            Issue ID
-          </label>
-          <div className='col-2'>
-            <span className='form-control'>{issueID}</span>
           </div>
 
           <label htmlFor='votesUp' className='col-2 col-form-label text-right'>
             Votes up
           </label>
-          <div className='col-2'>
+          <div className='col-1'>
             <span className='form-control'>{votesUp}</span>
           </div>
           <label
@@ -106,8 +142,25 @@ class IssueEditingForm extends Component {
           >
             Votes down
           </label>
-          <div className='col-2'>
+          <div className='col-1'>
             <span className='form-control'>{votesDown}</span>
+          </div>
+        </div>
+        <div className='form-group row'>
+          <label
+            htmlFor='dateCreated'
+            className='col-2 col-form-label text-right'
+          >
+            Created on
+          </label>
+          <div className='col-4'>
+            <span className='form-control'>{displayDateCreated}</span>
+          </div>
+          <label htmlFor='daysOpen' className='col-2 col-form-label text-right'>
+            Days open
+          </label>
+          <div className='col-4'>
+            <span className='form-control'>{daysOpen}</span>
           </div>
         </div>
         <div className='form-group row'>
@@ -192,7 +245,7 @@ class IssueEditingForm extends Component {
               className='custom-select'
               aria-describedby='priorityHelpBlock'
               required='required'
-              value={priority}
+              value={priority || ''}
               onChange={this.handleInputChange}
             >
               <option value='1'>1</option>
@@ -218,7 +271,7 @@ class IssueEditingForm extends Component {
                 type='text'
                 className='form-control'
                 aria-describedby='deadlineHelpBlock'
-                value={deadline}
+                value={deadline || ''}
                 onChange={this.handleInputChange}
               />
               <div className='input-group-append'>
@@ -283,21 +336,20 @@ class IssueEditingForm extends Component {
         </div>
         <div className='form-group row'>
           <div className='offset-2 col-10'>
-            <button
+            <span
               onClick={() => this.onSubmit()}
               name='submit'
-              type='submit'
               className='btn btn-primary mr-5'
             >
               Submit
-            </button>
-            <button
+            </span>
+            <span
               onClick={() => this.onCancel()}
               name='cancel'
               className='btn btn-primary'
             >
               Cancel
-            </button>
+            </span>
           </div>
         </div>
       </form>

@@ -4,23 +4,12 @@ import IssueList from './components/IssueList';
 import IssueCreationForm from './components/IssueCreationForm';
 import IssueEditingForm from './components/IssueEditingForm';
 
-// import axios from 'axios'
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   state = {
-    issueArray: [
-      {
-        id: 1,
-        title: 'Empty Plates Monday',
-        description: 'Empty plates in the refrigerator'
-      },
-      {
-        id: 2,
-        title: 'Empty Plates Tuesday ',
-        description: 'Empty plates in the refrigerator'
-      }
-    ],
+    issueArray: [],
     mockIssue: {
       creator: 'Mickey Mouse',
       dateCreated: '2019/06/25',
@@ -37,10 +26,20 @@ class App extends Component {
       taggees: ['fob', 'em']
     }
   };
-  // componentDidMount(){
-  //   axios.get('rest api url')
-  //   .then(res => this.setState({issueArray : res.data}))
-  // }
+  // componentDidMount = async () => {
+  //   axios.get('/issues').then(res => console.log(res));
+  // };
+
+  componentDidMount = async () => {
+    try {
+      let response = await axios.get('/issues');
+      console.log(response.data);
+      this.setState({ issueArray: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   render() {
     return (
       <Router>
@@ -50,7 +49,16 @@ class App extends Component {
             path='/'
             render={props => (
               <React.Fragment>
-                <h1>Issue Dash Board</h1>
+                <h1>Issue Dashboard</h1>
+                <p>
+                  <a href='/issues'>List of issues</a>
+                </p>
+                <p>
+                  <a href='/issues/new'>Create issue</a>
+                </p>
+                <p>
+                  <a href='/issues/1'>Edit issue 1</a>
+                </p>
               </React.Fragment>
             )}
           />
@@ -74,11 +82,11 @@ class App extends Component {
             )}
           />
           <Route
-            path='/issues/:id'
             exact
+            path='/issues/:_id/edit'
             render={props => (
               <React.Fragment>
-                <IssueEditingForm issue={this.state.mockIssue} />
+                <IssueEditingForm {...props} />
               </React.Fragment>
             )}
           />

@@ -8,7 +8,7 @@ class IssueList extends Component {
   render() {
     return this.props.issueArray.map(issue => (
       <ListGroup>
-        <Issue key={issue.id} issue={issue} />
+        <Issue key={issue._id} issue={issue} />
       </ListGroup>
     ));
   }
