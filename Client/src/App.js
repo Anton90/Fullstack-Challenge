@@ -35,7 +35,6 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       let response = await axios.get('/issues');
-      console.log(response.data);
       this.setState({ issueArray: response.data });
     } catch (error) {
       console.error(error);
@@ -93,10 +92,10 @@ class App extends Component {
             )}
           />
           <Route
-              path='/issues/:id'
+              path='/issues/:_id'
               exact
               render={props => (
-                  <IssueDescription issueArray={this.state.issueArray} />
+                  <IssueDescription {...props} />
                 )
               }
           />
