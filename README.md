@@ -57,11 +57,11 @@ There is at least another few days to a week of work remaining to finish everyth
 
 ## Authors
 
-* Raphaël (Github: 'taggar')
-* Supriya (Github: 'supriyakushavar')
-* Fiona (Github: 'FionaBeCode')
-* Anton (Github: 'Anton90')
-* Mada (Github: 'AlexandraMadalina')
+* Raphaël (Github: '[taggar](https://github.com/taggar)')
+* Supriya (Github: '[supriyakushavar](https://github.com/supriyakushavar)')
+* Fiona (Github: '[FionaBeCode](https://github.com/FionaBeCode)')
+* Anton (Github: '[Anton90](https://github.com/Anton90)')
+* Mada (Github: '[AlexandraMadalina](https://github.com/AlexandraMadalina)')
 
 ## License
 
