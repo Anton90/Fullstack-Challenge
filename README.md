@@ -65,7 +65,7 @@ There is at least another few days to a week of work remaining to finish everyth
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Coming soon!
 
 ## Acknowledgments
 
