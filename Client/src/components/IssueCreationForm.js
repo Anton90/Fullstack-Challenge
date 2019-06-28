@@ -10,6 +10,7 @@ class IssueCreationForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       creator: 'me',
+      creationDate: '',
       title: '',
       description: '',
       category: '',
@@ -32,6 +33,9 @@ class IssueCreationForm extends Component {
     this.props.onCancel();
   }
   onSubmit = async () => {
+    let now = new Date();
+    let today = now.getDate;
+    this.setState({ creationDate: today });
     try {
       let result = await axios.post('/issues', this.state);
       console.log(result);
@@ -219,13 +223,13 @@ class IssueCreationForm extends Component {
             >
               Submit
             </span>
-            <button
+            <span
               onClick={() => this.onCancel()}
               name='cancel'
               className='btn btn-primary'
             >
               Cancel
-            </button>
+            </span>
           </div>
         </div>
       </form>

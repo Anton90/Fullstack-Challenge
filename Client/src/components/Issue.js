@@ -1,4 +1,3 @@
-
 import React , {Component} from 'react'
 
 class Issue extends Component{
@@ -20,6 +19,7 @@ class Issue extends Component{
                 </div>   
             )
     }
+
   }
 
 export default Issue;
