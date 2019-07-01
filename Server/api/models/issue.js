@@ -41,7 +41,13 @@ const IssueSchema = mongoose.Schema({
   },
   votesDown: {
     type: Number
+  },
+  status: {
+      type: String,
+      default: 'Open'
   }
 });
 
-module.exports = mongoose.model('Issues', IssueSchema);
+
+
+module.exports = mongoose.model('Issue', IssueSchema);

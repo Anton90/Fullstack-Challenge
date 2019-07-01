@@ -1,25 +1,54 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
-require('dotenv/config');
+const mongoose = require('mongoose');
 
+
+
+const issuesRoutes = require('./api/routes/issues');
+const usersRoutes = require('./api/routes/user');
+
+mongoose.connect('mongodb+srv://Madalina:'+ process.env.MONGO_ATLAS_PW + '@issues-ig8oz.mongodb.net/test?retryWrites=true&w=majority',{
+    useNewUrlParser: true
+});
+
+mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true);
+
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('We are on home');
+app.use((req, res, next)=>{
+res.header("Access-Control_allow-Origin", "*");
+res.header('Access-Control-Allow-Headers',
+'Origin, X-Request-With, Content-Type, Accept, Authorization');
+
+if(req.method === 'OPTIONS'){
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    return res.status(200).json({});
+}
+next();
 });
-//Import routes
-const issuesRoute = require('./routes/issues');
-const usersRoute = require('./routes/users');
 
-app.use('/issues', issuesRoute);
-app.use('/users', usersRoute);
+app.use('/issues', issuesRoutes);
+app.use('/user', usersRoutes);
 
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () =>
-  console.log('connected to db')
-);
-
-app.listen(4000, () => {
-  console.log('Listening to port 4000');
+app.use((req, res, next) => {
+    const error = new Error('Not found');
+    error.status = 404;
+    next(error);
 });
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
+});
+
+
+module.exports = app;
