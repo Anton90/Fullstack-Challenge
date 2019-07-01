@@ -131,7 +131,7 @@ router.post('/login', (req, res, next) =>{
 });
 
 router.get('/:userId', (req, res, next) => {
-    const id = req.params.issueId;
+    const id = req.params.userId;
     User.findById(id)
         .select('_id name email')
         .exec()
